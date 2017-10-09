@@ -675,7 +675,7 @@ class VmdkTenantTestCase(unittest.TestCase):
                 if len(datastores) > 1:
                     datastore1 = datastores[1]
                     self.datastore1_name = datastore1[0]
-                    self.datastoer1_path = datastore[2]
+                    self.datastore1_path = datastore1[2]
                     logging.debug("Found second datastore: datastore_name=%s datastore_path=%s",
                                   self.datastore1_name, self.datastore1_path)
             else:
@@ -839,6 +839,10 @@ class VmdkTenantTestCase(unittest.TestCase):
             self.assertEqual(len(result), 2)
             self.assertEqual(self.default_tenant_vol1_name + "@" + self.datastore_name, result[0]['Name'])
             self.assertEqual(self.default_tenant_vol2_name + "@" + self.datastore1_name, result[1]['Name'])
+            
+            default_tenant_path = os.path.join(self.datastore1_path, auth_data_const.DEFAULT_TENANT_UUID)
+            vmdk_path = vmdk_utils.get_vmdk_path(default_tenant_path, self.default_tenant_vol2_name)
+            vmdk_ops.removeVMDK(vmdk_path)
 
             # remove privilege to datastore "self.datastore1_name"
             error_info = auth_api._tenant_access_rm(name=auth_data_const.DEFAULT_TENANT,

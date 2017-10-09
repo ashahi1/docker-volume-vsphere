@@ -840,6 +840,7 @@ class VmdkTenantTestCase(unittest.TestCase):
             self.assertEqual(self.default_tenant_vol1_name + "@" + self.datastore_name, result[0]['Name'])
             self.assertEqual(self.default_tenant_vol2_name + "@" + self.datastore1_name, result[1]['Name'])
             
+            # deleting the volume "default_tenant_vol2"
             default_tenant_path = os.path.join(self.datastore1_path, auth_data_const.DEFAULT_TENANT_UUID)
             vmdk_path = vmdk_utils.get_vmdk_path(default_tenant_path, self.default_tenant_vol2_name)
             vmdk_ops.removeVMDK(vmdk_path)

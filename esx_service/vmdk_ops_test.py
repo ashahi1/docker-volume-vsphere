@@ -777,14 +777,14 @@ class VmdkTenantTestCase(unittest.TestCase):
 
     def test_vmdkops_on_default_tenant_vm(self):
         """ Test vmdk life cycle on a VM which belongs to DEFAULT tenant """
-        # This test test the following cases:
-        # 1. DEFAULT tenant, privilege to datastore "_ALL_DS", and privilege to datastore "_VM_DS""
+        # This test tests the following cases:
+        # 1. For DEFAULT tenant, privilege to datastore "_ALL_DS", and privilege to datastore "_VM_DS""
         # are present, vmdk_ops from VM which is not owned by any tenant, vmdk_ops should succeed, and the volumes
         # will be created in the _VM_DS
-        # 2. change the default_datastore for DEFAULT tenant,  volume create with short name should be created in the
+        # 2. Change the default_datastore for DEFAULT tenant,  volume create with short name should be created in the
         # default datastore instead of VM datastore
-        # 3. Only privilege to  "_VM_DS" present, "create volume" should succed
-        # 4. REMOVE DEFAULT tenant, "create volume" should fail
+        # 3. With privilege set only to  "_VM_DS", "create volume" should succeed
+        # 4. After removing DEFAULT tenant, "create volume" should fail
 
         # run create, attach, detach, remove command when DEFAULT tenant and  privileges to "_ALL_DS" and "_VM_DS" are present
         # This is the case after user fresh install

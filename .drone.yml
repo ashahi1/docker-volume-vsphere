@@ -155,9 +155,9 @@ build:
       - export CI_NODE4=`$GOVC_GET_IP photon.ga.vsan`
       - #
       - ./misc/drone-scripts/deploy-and-test-wrapper.sh runtests $GOVC_URL $VM1 $VM2 $$BUILD_NUMBER installbuilds < /dev/null
-      - #
+      - # 
       - echo "=> Building and running tests for vFile plugin on VMFS ESX_6.0" `date` > /dev/null
-      - #
+      - # Executing vFile tests
       - ./misc/drone-scripts/deploy-and-test-wrapper.sh vfileplugin $GOVC_URL_6_0 $VM1 $VM2 $$BUILD_NUMBER < /dev/null
       - 
       - #echo "=> Running tests on VSAN ESX_6.0" `date` > /dev/null

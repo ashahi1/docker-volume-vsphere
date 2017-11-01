@@ -363,17 +363,19 @@ Head to GitHub and author a new release add the changelog for the tag created.
 <vibID>vmware-esx-vmdkops-0.15.b93c186</vibID> (vmware-esx-vmdkops-<release_version>.<commit's SHA hash>)
 ```
 
-4. Head to [Bintray](https://bintray.com/vmware/product/vDVS/view) to publish signed VIB
-5. Push vDVS & vFile managed plugin to docker store and windows plugin to bintray
-6. Add ```Downloads``` section with direct links; take [Release 0.13](https://github.com/vmware/docker-volume-vsphere/releases/tag/0.13) as the reference
+4. After the vib signing has successfully finished, you will receive a confirmation email. Go to the deliverables link 
+   mentioned in the email and download the signed vib.
+5. Head to [Bintray](https://bintray.com/vmware/product/vDVS/view) to publish signed VIB
+6. Push vDVS & vFile managed plugin to docker store and windows plugin to bintray
+7. Add ```Downloads``` section with direct links; take [Release 0.13](https://github.com/vmware/docker-volume-vsphere/releases/tag/0.13) as the reference
 
 ### Publish vDVS managed plugin to Docker Store
 **Note**: not automated as of 04/04/17
 
 To push plugin image
 ```
-DOCKER_HUB_REPO=vmware EXTRA_TAG= VERSION_TAG=<version_tag> make all
-DOCKER_HUB_REPO=vmware EXTRA_TAG= VERSION_TAG=latest make all
+DOCKER_HUB_REPO=vmware EXTRA_TAG= VERSION_TAG=<version_tag> make build-all
+DOCKER_HUB_REPO=vmware EXTRA_TAG= VERSION_TAG=latest make build-all
 ```
 
 ### Publish signed VIB to Bintray

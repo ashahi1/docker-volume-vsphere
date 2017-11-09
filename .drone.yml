@@ -107,14 +107,14 @@ build:
       - echo "=> Building and pushing vDVS managed plugin" `date` > /dev/null
       - #
       - #export GOVC_URL=$GOVC_URL_6_5
-      - export VM1=`$GOVC_GET_IP photon.vmfs`
-      - export VM2=`$GOVC_GET_IP Ubuntu.16.10`
+      - #export VM1=`$GOVC_GET_IP photon.vmfs`
+      - #export VM2=`$GOVC_GET_IP Ubuntu.16.10`
       - #
-      - export MANAGER1=$VM1
-      - export WORKER1=$VM2
-      - export WORKER2=`$GOVC_GET_IP Ubuntu.14.04`
+      - #export MANAGER1=$VM1
+      - #export WORKER1=$VM2
+      - #export WORKER2=`$GOVC_GET_IP Ubuntu.14.04`
       - #
-      - export CI_NODE4=`$GOVC_GET_IP photon.vsan`
+      - #export CI_NODE4=`$GOVC_GET_IP photon.vsan`
       - #
       - #./misc/drone-scripts/deploy-and-test-wrapper.sh pluginSanityCheck $GOVC_URL_6_5 $VM1 $VM2 $$BUILD_NUMBER installbuilds < /dev/null
       - #

@@ -25,8 +25,8 @@ DIR=$(dirname ${BASH_SOURCE[0]})
 # Threshold to time out
 retryCount=30
 
-echo ESX 6.5
-wait_for "govc vm.ip $ESX_6_5" $retryCount
+#echo ESX 6.5
+#wait_for "govc vm.ip $ESX_6_5" $retryCount
 
 echo ESX 6.0
 wait_for "govc vm.ip $ESX_6_0" $retryCount

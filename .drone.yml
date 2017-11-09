@@ -148,9 +148,9 @@ build:
       - export VM1=`$GOVC_GET_IP photon.ga.vmfs`
       - export VM2=`$GOVC_GET_IP Ubuntu.1404.vmfs`
       - #
-      - export MANAGER1=$VM2
-      - export WORKER1=`$GOVC_GET_IP photon.ga.vsan`
-      - export WORKER2=`$GOVC_GET_IP Ubuntu.1404.vsan`
+      - export MANAGER1=`$GOVC_GET_IP photon.ga.vsan`
+      - export WORKER1=`$GOVC_GET_IP Ubuntu.1404.vsan` 
+      - export WORKER2=`$GOVC_GET_IP Ubuntu.1404.vmfs`
       - #
       - export CI_NODE4=`$GOVC_GET_IP photon.ga.vmfs`
       - #

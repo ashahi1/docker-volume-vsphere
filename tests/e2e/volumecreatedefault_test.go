@@ -14,7 +14,7 @@
 
 // Options and additional volume creation tests for non-windows platforms.
 
-// +build runonce
+// +build unstable
 
 package e2e
 

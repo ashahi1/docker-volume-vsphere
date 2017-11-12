@@ -14,7 +14,7 @@
 
 // This test suite contains tests to verify behaviors of non-default vmgroup
 
-// +build runonce
+// +build unstable
 
 package e2e
 

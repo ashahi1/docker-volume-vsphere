@@ -14,7 +14,7 @@
 
 // This test suite includes refcount test on plugin side
 
-// +build runonce
+// +build unstable
 
 package e2e
 

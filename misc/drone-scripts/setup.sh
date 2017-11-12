@@ -13,9 +13,9 @@
 # See the License for the specific language governing permissions and
 # limitations under the License.
 
-echo "Resetting testbed"
-govc snapshot.revert -vm $ESX_6_5 init
-govc snapshot.revert -vm $ESX_6_0 init
+echo "Resetting testbed for vFile....."
+#govc snapshot.revert -vm $ESX_6_5 init
+govc snapshot.revert -vm $ESX_6_0 init_ub_master
 
 echo "Waiting for revert to complete";
 

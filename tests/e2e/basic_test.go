@@ -15,7 +15,7 @@
 // This test suite includes test cases to verify basic functionality
 // in most common configurations
 
-// +build runalways runoncewin
+// +build unstable
 
 package e2e
 

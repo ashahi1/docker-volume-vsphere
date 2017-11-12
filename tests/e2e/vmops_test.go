@@ -15,7 +15,7 @@
 // This test suite contains tests to verify VM operations (snapshot) with
 // vSphere docker volumes attached to the VM.
 
-// +build runonce
+// +build unstable
 
 package e2e
 
@@ -24,9 +24,9 @@ import (
 
 	adminutils "github.com/vmware/docker-volume-vsphere/tests/utils/admincli"
 	"github.com/vmware/docker-volume-vsphere/tests/utils/dockercli"
+	"github.com/vmware/docker-volume-vsphere/tests/utils/esx"
 	"github.com/vmware/docker-volume-vsphere/tests/utils/inputparams"
 	"github.com/vmware/docker-volume-vsphere/tests/utils/misc"
-	"github.com/vmware/docker-volume-vsphere/tests/utils/esx"
 	"github.com/vmware/docker-volume-vsphere/tests/utils/verification"
 	. "gopkg.in/check.v1"
 )

@@ -3,7 +3,7 @@ title: Docker Volume Management
 ---
 
 ## Creation and management of docker volumes
-The docker volume commands are completely supported by vDVS plugin. This section demonstrates use of various commands with examples.
+All the docker volume commands other than the prune command are completely supported by vDVS plugin. This section demonstrates use of various commands with examples.
 
 
 ##### Size
@@ -14,7 +14,7 @@ docker volume create --driver=vsphere --name=MyVolume -o size=10gb
 ```
 
 ##### File System Type (fstype)
-You can specify the filesystem which will be used it to create the volumes. The docker plugin will look for existing filesystesm in /sbin/mkfs.fstype but if the specified filesystem is not found then it will return a list for which it has found mkfs. The default filesystem if not specified is ext4.
+You can specify the filesystem which will be used it to create the volumes. The docker plugin will look for existing filesystems in /sbin/mkfs.fstype but if the specified filesystem is not found then it will return a list for which it has found mkfs. The default filesystem if not specified is ext4.
 
 ```
 docker volume create --driver=vsphere --name=MyVolume -o size=10gb -o fstype=xfs

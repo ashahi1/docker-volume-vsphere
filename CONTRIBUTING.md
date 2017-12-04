@@ -277,6 +277,15 @@ Add a multi-string key named Environment and add the following lines to it.
     GOPATH=C:\Users\root\go\
     PATH=C:\Program Files\mingw64\bin\;C:\Perl64\bin;C:\Python27;C:\Program Files (x86)\GnuWin32\bin;C:\Program Files\7-Zip;C:\Windows\system32;C:\Windows;C:\Windows\System32\Wbem;C:\Windows\System32\WindowsPowerShell\v1.0\;C:\Users\Administrator\AppData\Local\Microsoft\WindowsApps;C:\Go\bin;C:\Program Files\Git\cmd;C:\Program Files (x86)\Windows Kits\10\Windows Performance Toolkit\;C:\Program Files\Docker;
 ```
+### To run tests on Windows VM
+
+    Following steps need to be executed to run tests on windows VM:
+
+      1. scp ~/.ssh/id_rsa.pub root@<Windows-VM-IP>:C:/Users/root/.ssh/authorized_keys
+      2. export WIN_VM1=<Windows-VM-IP>
+      3. make build-windows-plugin 
+      4. make deploy-windows-plugin
+      5. make test-e2e-windows
 
 ## Managing GO Dependencies
 

@@ -282,12 +282,16 @@ Add a multi-string key named Environment and add the following lines to it.
 ```
       # setup the ssh key on Windows VM:
       scp ~/.ssh/id_rsa.pub root@<Windows-VM-IP>:C:/Users/root/.ssh/authorized_keys
+
       # set the environment variable:
       export WIN_VM1=<Windows-VM-IP>
+
       # build the plugin:
       make build-windows-plugin
+
       # deploy the plugin:
       make deploy-windows-plugin
+      
       # run the tests:
       make test-e2e-windows
 

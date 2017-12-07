@@ -36,8 +36,6 @@ Edge release: A monthly release with new features and bug fixes.
 
 Stable release: A quarterly release with reliable/stable updates.
 
-***Note: From 0.19 release of vDVS, the plugin has to have a ESX service thats at least 0.19 or later. This applies for plugins on Linux platform.***
-
 Please refer [release convention](https://github.com/vmware/docker-volume-vsphere/blob/master/CONTRIBUTING.md#release-naming-convention) for more details.
 
 ### Can I use the full volume like "vol@datastore" in compose file with vDVS?
@@ -90,6 +88,9 @@ e.g.
 systemctl restart docker
 ```
 
+#### I'm not able to create volume and I see "VolumeDriver.Create: Device not found" error
+
+From 0.19 release of vDVS, the plugin has to have a ESX service thats at least 0.19 or later. This applies for plugins on Linux platform. [#2023](https://github.com/vmware/docker-volume-vsphere/issues/2023)
 
 ## Upgrade to version 0.10 (Dec 2016) release
 

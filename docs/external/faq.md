@@ -90,7 +90,8 @@ systemctl restart docker
 
 #### I'm not able to create volume and I see "VolumeDriver.Create: Device not found" error
 
-From 0.19 release of vDVS, the plugin has to have a ESX service thats at least 0.19 or later. This applies for plugins on Linux platform. [#2023](https://github.com/vmware/docker-volume-vsphere/issues/2023)
+From 0.19 release of vDVS, the plugin has to have a VIB that's at least 0.19 or later.  [#2023](https://github.com/vmware/docker-volume-vsphere/issues/2023)
+Ideally it is better if you always upgrade both the plugin and the VIB to matching versions.
 
 ## Upgrade to version 0.10 (Dec 2016) release
 

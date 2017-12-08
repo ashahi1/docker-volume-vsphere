@@ -212,7 +212,7 @@ coverage:
 	@$(SSH) root@$(ESX) \
 		-C 'if which $(COVERAGE) > /dev/null \
 			; then \
-				echo Running coverage reports; $(VMDKOPSD) stop ; $(COVERAGE) combine .coverage* ; $(COVERAGE) report ; rm .coverage* \
+				echo Running coverage reports; $(VMDKOPSD) stop ; $(COVERAGE) combine .coverage* ; $(COVERAGE) report ; rm -f .coverage* \
 			; else \
 				echo Python coverage package does not exist \
 			; fi'

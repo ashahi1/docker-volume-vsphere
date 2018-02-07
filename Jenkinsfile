@@ -21,7 +21,7 @@ node("vdvs-slave-two") {
             sh "echo Building the VDVS binaries"
             sh "echo ESX=$ESX; echo VM1=$VM1; echo VM2=$VM2; echo VM3=$VM3;"
             sh "export ESX=$ESX60; export VM1=$VM160; export VM2=$VM260; export VM3=$VM360"
-            sh "export MANAGER1=MANAGER160; export WORKER1=WORKER160; export WORKER2=WORKER260"
+            sh "export MANAGER1=$MANAGER160; export WORKER1=$WORKER160; export WORKER2=$WORKER260"
             sh "echo ESX=$ESX; echo VM1=$VM1; echo VM2=$VM2; echo VM3=$VM3"
             sh "pwd; ls"
             sh "make build-all"
@@ -32,9 +32,10 @@ node("vdvs-slave-two") {
 
            * sh "echo deploying binaries"
            * sh "ls" 
-           * sh "echo ESX = $ESX; echo VM-1=$VM1; echo VM-2=$VM2; echo VM-3=$VM3;" 
+           * sh "echo ESX = $ESX; echo VM1=$VM1; echo VM2=$VM2; echo VM3=$VM3;" 
            * sh "make deploy-all" 
-           * sh "echo finished deploying the binaries" */
+           * sh "echo finished deploying the binaries" 
+        */
         }
 
         stage('Deploy - 6.0 setup') {

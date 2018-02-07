@@ -12,6 +12,7 @@ node("vdvs-slave-two") {
         stage('Checkout code') {
         /* Let's make sure we have the repository cloned to our workspace. */
             checkout scm
+            sh "cat Jenkinsfile"
         }
 
         stage('Build binaries') {

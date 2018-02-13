@@ -1,25 +1,11 @@
 pipeline {
     agent none
 
-    stages {
+    triggers {
+        issueCommentTrigger('.*test this please.*')
+    }
 
-        stage('Post comments to github - 1') {
-            steps {
-                script{
-                    def comment = pullRequest.comment('This PR is highly illogical - 1...')
-                }
-            }
-        }
-
-
-        stage('Post comments to github - 2') {
-            steps {
-                script{
-                    def comment = pullRequest.comment('This PR is highly illogical - 2...')
-                }
-            }
-        }
-
+     stages{
         stage('Checkout code') {
             failFast true
             parallel {
@@ -223,7 +209,7 @@ pipeline {
                 sh "echo Windows plugin tests finished"
             }
         }
-    }
+     }
 
     
     // The options directive is for configuration that applies to the whole job.
@@ -231,5 +217,11 @@ pipeline {
         // This ensures we only have 10 builds at a time, so
         // we don't fill up our storage!
         buildDiscarder(logRotator(numToKeepStr:'10'))
+    }
+
+    post { 
+        always { 
+            echo 'I will always say Hello again!'
+        }
     }
 }

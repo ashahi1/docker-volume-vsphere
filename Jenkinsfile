@@ -2,6 +2,24 @@ pipeline {
     agent none
 
     stages {
+
+        stage('Post comments to github - 1') {
+            steps {
+                script{
+                    def comment = pullRequest.comment('This PR is highly illogical - 1...')
+                }
+            }
+        }
+
+
+        stage('Post comments to github - 2') {
+            steps {
+                script{
+                    def comment = pullRequest.comment('This PR is highly illogical - 2...')
+                }
+            }
+        }
+
         stage('Checkout code') {
             failFast true
             parallel {
@@ -207,6 +225,7 @@ pipeline {
         }
     }
 
+    
     // The options directive is for configuration that applies to the whole job.
     options {
         // This ensures we only have 10 builds at a time, so

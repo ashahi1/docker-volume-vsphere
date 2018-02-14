@@ -6,7 +6,7 @@ pipeline {
             failFast true
             parallel {
                 stage('Checkout for ESX 6.5 runs') {
-                /* Let's make sure we have the repository cloned to our workspace. */
+                /* Let's make sure we have the repository cloned to our workspace - test. */
                     agent {
                         label "vdvs-65-slaves"
                     }

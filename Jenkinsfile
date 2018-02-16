@@ -67,7 +67,7 @@ pipeline {
                         label env.VDVS_65_NODE_ID
                     }
                     steps {
-                        sh "echo Building the VDVS binaries"
+                        echo "Building the VDVS binaries"
                         sh "export PKG_VERSION=$BUILD_NUMBER"
                         sh "make build-all"
                     }
@@ -78,7 +78,7 @@ pipeline {
                         label env.VDVS_60_NODE_ID
                     }
                     steps {
-                        sh "echo Building the VDVS binaries"
+                        echo "Building the VDVS binaries"
                         sh "export PKG_VERSION=$BUILD_NUMBER"
                         sh "make build-all"
                     }
@@ -94,11 +94,10 @@ pipeline {
                         label env.VDVS_65_NODE_ID
                     }
                     steps {
-                        sh "echo Deployment On 6.5 setup"
-                        sh "echo ESX=$ESX; echo VM1=$VM1; echo VM2=$VM2; echo VM3=$VM3; echo PKG_VERSION"
-                        sh "echo deploying binaries"
+                        echo "Deployment On 6.5 setup"
+                        echo "ESX=$ESX; VM1=$VM1; VM2=$VM2; VM3=$VM3; PKG_VERSION"
                         sh "make deploy-all"
-                        sh "echo finished deploying the binaries"
+                        echo "Finished deploying the binaries"
                     }
                 }
 
@@ -107,75 +106,73 @@ pipeline {
                         label env.VDVS_60_NODE_ID
                     }
                     steps {
-                        sh "echo Deployment On 6.0 setup"
-                        sh "echo ESX=$ESX; echo VM1=$VM1; echo VM2=$VM2; echo VM3=$VM3; echo PKG_VERSION"
+                        echo "Deployment On 6.0 setup"
+                        echo "ESX=$ESX; VM1=$VM1; VM2=$VM2; VM3=$VM3; PKG_VERSION"
                         sh "echo deploying binaries"
                         sh "make deploy-all" 
-                        sh "echo finished deploying the binaries"
+                        echo "Finished deploying the binaries"
                     }
                 }
             }
         }
 
-        stage('Test VDVS') {
-            failFast true
-            parallel {
-                stage('Run tests on ESX 6.5') {
-                    agent {
-                        label env.VDVS_65_NODE_ID
-                    }
+        /*
+        *stage('Test VDVS') {
+        *    failFast true
+        *    parallel {
+        *        stage('Run tests on ESX 6.5') {
+        *            agent {
+        *                label env.VDVS_65_NODE_ID
+        *            }
+        *
+        *            steps {
+		*        script {
+		*	    try {
+        *                        sh "echo Test VDVS On 6.5 setup"
+        *                        sh "echo ESX=$ESX; echo VM1=$VM1; echo VM2=$VM2; echo VM3=$VM3; echo PKG_VERSION"
+        *                        sh "echo starting e2e tests"
+        *                        sh "make test-e2e"
+        *                        sh "make test-esx"
+        *                        sh "make test-vm"
+		*	    }
+		*	    catch (ex) {
+        *                        def cleanVfile= "False"
+        *                        cleanSetup(cleanVfile)
+		*	        throw ex
+		*	    }
+		*	}
+        *            }
+        *        }
+        *
+        *        stage('Run tests on ESX 6.0') {
+        *            agent {
+        *                label env.VDVS_60_NODE_ID
+        *            }   
+        *            steps {
+		*        script {
+        *                    def stopContainers = "docker stop \$(docker ps -a -q) 2> /dev/null || true"
+        *                    def removeContainers = "docker rm \$(docker ps -a -q) 2> /dev/null || true"
+        *                    def removeVolumes =  "docker volume rm \$(docker volume ls -q -f dangling=true) 2> /dev/null || true"
+		*	    try {
+        *                        sh "echo Test VDVS On 6.0 setup"
+        *                        sh "echo ESX=$ESX; echo VM1=$VM1; echo VM2=$VM2; echo VM3=$VM3; echo PKG_VERSION"
+        *                        sh "echo starting e2e tests"
+        *                        sh "make test-e2e"
+        *                        sh "make test-esx"
+        *                        sh "make test-vm"
+		*	    }
+		*	    catch (ex) {
+        *                        def cleanVfile = "False"
+        *                        cleanSetup(cleanVfile)
+		*	        throw ex
+		*	    }
+		*	}
+        *            }
+        *        }
+        *    }
+        *}
+        */
 
-                    steps {
-		        script {
-			    try {
-                                sh "echo Test VDVS On 6.5 setup"
-                                sh "echo ESX=$ESX; echo VM1=$VM1; echo VM2=$VM2; echo VM3=$VM3; echo PKG_VERSION"
-                                sh "echo starting e2e tests"
-                                sh "make test-e2e"
-                                sh "make test-esx"
-                                sh "make test-vm"
-			    }
-			    catch (ex) {
-                                sh "ssh ${env.GOVC_USERNAME}@$VM1 ${stopContainer}; ${removeContainer}; ${removeVolume}"
-                                sh "ssh ${env.GOVC_USERNAME}@$VM2 ${stopContainer}; ${removeContainer}; ${removeVolume}"
-                                sh "ssh ${env.GOVC_USERNAME}@$VM3 ${stopContainer}; ${removeContainer}; ${removeVolume}"
-                                sh "make clean-all"
-			        throw ex
-			    }
-			}
-                    }
-                }
-
-                stage('Run tests on ESX 6.0') {
-                    agent {
-                        label env.VDVS_60_NODE_ID
-                    }   
-                    steps {
-		        script {
-                            def stopContainers = "docker stop \$(docker ps -a -q) 2> /dev/null || true"
-                            def removeContainers = "docker rm \$(docker ps -a -q) 2> /dev/null || true"
-                            def removeVolumes =  "docker volume rm \$(docker volume ls -q -f dangling=true) 2> /dev/null || true"
-			    try {
-                                sh "echo Test VDVS On 6.0 setup"
-                                sh "echo ESX=$ESX; echo VM1=$VM1; echo VM2=$VM2; echo VM3=$VM3; echo PKG_VERSION"
-                                sh "echo starting e2e tests"
-                                sh "make test-e2e"
-                                sh "make test-esx"
-                                sh "make test-vm"
-			    }
-			    catch (ex) {
-                                sh "ssh ${env.GOVC_USERNAME}@$VM1 ${stopContainer}; ${removeContainer}; ${removeVolume}"
-                                sh "ssh ${env.GOVC_USERNAME}@$VM2 ${stopContainer}; ${removeContainer}; ${removeVolume}"
-                                sh "ssh ${env.GOVC_USERNAME}@$VM3 ${stopContainer}; ${removeContainer}; ${removeVolume}"
-                                sh "make clean-all"
-			        throw ex
-			    }
-			}
-                    }
-                }
-            }
-        }
-   
         stage('Test vFile') {
             failFast true
             parallel {
@@ -189,21 +186,18 @@ pipeline {
                             def removeContainers = "docker rm \$(docker ps -a -q) 2> /dev/null || true"
                             def removeVolumes =  "docker volume rm \$(docker volume ls -q -f dangling=true) 2> /dev/null || true"
                             try {
-                                sh "echo Build, deploy, and test vFile on 6.5 setup"
-                                sh "echo Build vFile binaries"
-                                sh "echo ESX = $ESX; echo VM1=$VM1; echo VM2=$VM2; echo VM3=$VM3;" 
+                                echo "Build, deploy, and test vFile on 6.5 setup"
+                                echo "Build vFile binaries"
+                                echo "ESX = $ESX, VM1=$VM1, VM2=$VM2, VM3=$VM3;" 
                                 sh "make build-vfile-all" 
-                                sh "echo Deploy the vFile binaries"
+                                echo " Deploy the vFile binaries"
                                 sh "make deploy-vfile-plugin"
-                                sh "echo Start the vFile tests"
+                                echo "Start the vFile tests"
                                 sh "make test-e2e-vfile"
-                                sh "echo vFile tests finished"  
+                                echo "vFile tests finished"  
                             } finally {
-                                sh "ssh ${env.GOVC_USERNAME}@$VM1 ${stopContainer}; ${removeContainer}; ${removeVolume}"
-                                sh "ssh ${env.GOVC_USERNAME}@$VM2 ${stopContainer}; ${removeContainer}; ${removeVolume}"
-                                sh "ssh ${env.GOVC_USERNAME}@$VM3 ${stopContainer}; ${removeContainer}; ${removeVolume}"
-                                sh "make clean-vfile"
-                                sh "make clean-all"
+                                def cleanVfile = "True"
+                                cleanSetup(cleanVfile)
                              } 
                         }
                     }
@@ -221,20 +215,17 @@ pipeline {
                             def removeVolumes =  "docker volume rm \$(docker volume ls -q -f dangling=true) 2> /dev/null || true"
                             try {
                                 echo "Build, deploy, and test vFile on 6.0 setup"
-                                sh "echo Build vFile binaries"
-                                sh "echo ESX=$ESX; echo VM1=$VM1; echo VM2=$VM2; echo VM3=$VM3;" 
+                                echo "Build vFile binaries"
+                                echo "ESX=$ESX, VM1=$VM1, VM2=$VM2, VM3=$VM3;" 
                                 sh "make build-vfile-all" 
-                                sh "echo Deploy the vFile binaries"
+                                echo " Deploy the vFile binaries"
                                 sh "make deploy-vfile-plugin"
-                                sh "echo Run the vFile tests"
+                                echo "Run the vFile tests"
                                 sh "make test-e2e-vfile"
-                                sh "echo vFile tests finished"
+                                echo "vFile tests finished"
                             } finally {
-                                sh "ssh ${env.GOVC_USERNAME}@$VM1 ${stopContainer}; ${removeContainer}; ${removeVolume}"
-                                sh "ssh ${env.GOVC_USERNAME}@$VM2 ${stopContainer}; ${removeContainer}; ${removeVolume}"
-                                sh "ssh ${env.GOVC_USERNAME}@$VM3 ${stopContainer}; ${removeContainer}; ${removeVolume}"
-                                sh "make clean-vfile"
-                                sh "make clean-all"   
+                                def cleanVfile = "True"
+                                cleanSetup(cleanVfile)   
                             } 
                         }
 
@@ -250,17 +241,17 @@ pipeline {
             }
 
             steps {
-                sh "echo Build, deploy, and test Windows plugin"
-                sh "echo Windows-VM=$WIN_VM1"
-                sh "echo Build Windows plugin binaries"
+                echo "Build, deploy, and test Windows plugin"
+                echo "Windows-VM=$WIN_VM1"
+                echo "Build Windows plugin binaries"
                 sh "make build-windows-plugin"
-                sh "echo Finished building binaries for windows"
-                sh "echo Deploy the Windows plugin binaries"
+                echo "Finished building binaries for windows"
+                echo "Deploy the Windows plugin binaries"
                 sh "make deploy-windows-plugin"
-                sh "echo Finished deploying binaries for windows"
-                sh "echo Run the Windows plugin tests"
+                echo "echo Finished deploying binaries for windows"
+                echo "echo Run the Windows plugin tests"
                 sh "make test-e2e-windows"
-                sh "echo Windows plugin tests finished"
+                echo "Windows plugin tests finished"
             }
         }
     }
@@ -291,4 +282,18 @@ def replaceNodeLabel(nodeName, oldLabel, newLabel) {
     node.labelString = node.labelString.replaceAll("\\b " + oldLabel + "\\b", "")
     node.labelString = node.labelString + " " + newLabel
     node.save()
+}
+
+def cleanSetup(cleanVfile) {
+    echo "Cleaning up the setup..."
+    echo "ESX = $ESX; VM1=$VM1; VM2=$VM2; VM3=$VM3;"
+    echo "bool=$cleanVfile"
+    sh "ssh ${env.GOVC_USERNAME}@$VM1 ${stopContainer}; ${removeContainer}; ${removeVolume}"
+    sh "ssh ${env.GOVC_USERNAME}@$VM2 ${stopContainer}; ${removeContainer}; ${removeVolume}"
+    sh "ssh ${env.GOVC_USERNAME}@$VM3 ${stopContainer}; ${removeContainer}; ${removeVolume}"
+    if(cleanVfile.equals("True")){
+        echo "Removing vFile plugin..."
+        sh "make clean-vfile"
+    }
+    sh "make clean-all"
 }

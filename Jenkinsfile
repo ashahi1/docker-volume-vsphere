@@ -43,6 +43,7 @@ pipeline {
                         label env.VDVS_65_NODE_ID
                     }
                     steps {
+                        echo "===============" + env.NODE_NAME + " Node Id: " +env.VDVS_65_NODE_ID
                         checkout scm
                     }
                 }
@@ -52,6 +53,7 @@ pipeline {
                         label env.VDVS_60_NODE_ID
                     }
                     steps {
+                        echo "===============" + env.NODE_NAME + " Node Id: " +env.VDVS_60_NODE_ID
                         checkout scm
                     }
                 }
